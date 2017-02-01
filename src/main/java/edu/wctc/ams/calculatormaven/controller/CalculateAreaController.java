@@ -26,10 +26,15 @@ public class CalculateAreaController extends HttpServlet {
     
     private CalculateArea ca;
     private final String NEXT_PAGE = "/Home.jsp";
-    private final String LENGTH = "length";
-    private final String WIDTH = "width";
-    private final String FINALE = "result";
+    private final String NUMBER_ONE = "numberOne";
+    private final String NUMBER_TWO = "numberTwo";
     private final String RESULT_RECT = "resultRect";
+    private final String RESULT_CIRC = "resultCirc";
+    private final String RESULT_TRIG = "resultTrig";
+    public String calcType;
+    
+    private final String RADIUS = "radius";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,23 +60,35 @@ public class CalculateAreaController extends HttpServlet {
         
         try {
             /* TODO output your page here. You may use following sample code. */
-            String numberOne = request.getParameter("numberOne");
-            String numberTwo = request.getParameter("numberTwo");
-            double area = ca.getRectangularArea(numberOne, numberTwo);
-            
-//            out.println("<body>");
-//            out.println("<h1>Results: </h1><br>");
-//            out.println("with " + numberOne + " and " + numberTwo + ", the area is: " +  "!");
-//            out.println("</body>");
-//            request.setAttribute(LENGTH, numberOne);
-//            request.setAttribute(WIDTH, numberTwo);
-//            request.setAttribute(FINALE, area);
-              request.setAttribute(RESULT_RECT, area);
-           
+            calcType = request.getParameter("calcType");
+            if(calcType.equals("Rectangle")){
+                String numberOne = request.getParameter(NUMBER_ONE);
+                String numberTwo = request.getParameter(NUMBER_TWO);
+                double area = ca.getRectangularArea(numberOne, numberTwo);
+                request.setAttribute(RESULT_RECT, area);
+            }
+            if(calcType.equals("Circle")){
+                String radSet = request.getParameter("Radius");
+                double area = ca.getCicularArea(radSet);
+                request.setAttribute(RESULT_CIRC, area);
+            }
+            if(calcType.equals("Triangle")){
+                String numberOne = request.getParameter(NUMBER_ONE);
+                String numberTwo = request.getParameter(NUMBER_TWO);
+                double area = ca.getPythagoreanArea(numberOne, numberTwo);
+                request.setAttribute(RESULT_TRIG, area);
+            }
         }
         catch(Exception nfe){
-//            out.println(" ERROR " + nfe + ".");
-            request.setAttribute(FINALE, nfe);
+            if(calcType.equals("Rectangle")){
+                request.setAttribute(RESULT_RECT, nfe);
+            }
+            if(calcType.equals("Circle")){
+                request.setAttribute(RESULT_CIRC, nfe);
+            }
+            if(calcType.equals("Triangle")){
+                request.setAttribute(RESULT_TRIG, nfe);
+            }
         }
         
         RequestDispatcher view = request.getRequestDispatcher(NEXT_PAGE);
