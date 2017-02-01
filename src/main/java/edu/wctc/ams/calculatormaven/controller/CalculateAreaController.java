@@ -25,10 +25,11 @@ public class CalculateAreaController extends HttpServlet {
     
     
     private CalculateArea ca;
-    private final String NEXT_PAGE = "/ResultsPage.jsp";
+    private final String NEXT_PAGE = "/Home.jsp";
     private final String LENGTH = "length";
     private final String WIDTH = "width";
     private final String FINALE = "result";
+    private final String RESULT_RECT = "resultRect";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,9 +63,10 @@ public class CalculateAreaController extends HttpServlet {
 //            out.println("<h1>Results: </h1><br>");
 //            out.println("with " + numberOne + " and " + numberTwo + ", the area is: " +  "!");
 //            out.println("</body>");
-            request.setAttribute(LENGTH, numberOne);
-            request.setAttribute(WIDTH, numberTwo);
-            request.setAttribute(FINALE, area);
+//            request.setAttribute(LENGTH, numberOne);
+//            request.setAttribute(WIDTH, numberTwo);
+//            request.setAttribute(FINALE, area);
+              request.setAttribute(RESULT_RECT, area);
            
         }
         catch(Exception nfe){
